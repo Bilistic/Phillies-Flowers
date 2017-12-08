@@ -16,10 +16,20 @@
 					<button th:onclick="'buyFunc('+ ${item.id} +')'">Buy</button>
 				</td>
 			</tr>
+			
 		</table>
 		<p>Cart:</p>
 		<table id="Cart">
 		</table>
+		<form id="formBuy" action="/shop/order/buy/1" method="post">
+			<input type ="text" name = "firstname"  required="required"/>
+			<input type ="text" name = "lastname"  required="required"/>
+			<input type ="text" name = "address"  required="required"/>
+			<input type ="text" name = "town"  required="required"/>
+			<input type ="text" name = "city"  required="required"/>
+			<input type ="text" name = "post"  required="required"/>
+			<input type = "submit" value="submit"/>
+		</form>
 		
 		<script>
 			function buyFunc(id) {
@@ -47,9 +57,27 @@
 									for(var key2 in items[key]){
 										if (items[key].hasOwnProperty(key2)) {
 											var val = items[key][key2];
-											var $item = $("<tr><td>"+ val["count"] +"</td><td>"+ val["item"]["name"] +"</td><td>"+ (val["item"]["cost"] * val["count"]) +"</td></tr>");
-											console.log(val);
-											$("#Cart").append($item);
+											var tr = document.createElement("tr");
+											var td1 = document.createElement("td");
+											var t1 = document.createTextNode(val["count"]);   
+											td1.appendChild(t1);
+											var td2 = document.createElement("td");
+											var t2 = document.createTextNode(val["item"]["name"]);   
+											td2.appendChild(t2);
+											var td3 = document.createElement("td");
+											var t3 = document.createTextNode((val["item"]["cost"] * val["count"]));   
+											td3.appendChild(t3);
+											var td4 = document.createElement("td");
+											var button = document.createElement("button");
+											var t4 = document.createTextNode("Remove");   
+											button.setAttribute( "onClick", "javascript: removeFunc("+val["item"]["id"]+");" );
+											button.appendChild(t4);
+											td4.appendChild(button);
+											tr.appendChild(td1);
+											tr.appendChild(td2);
+											tr.appendChild(td3);
+											tr.appendChild(td4);
+											document.getElementById("Cart").appendChild(tr);
 										}
 									}
 								}
@@ -60,6 +88,36 @@
 				xhttp.open("GET", "cart/1", true);
 				xhttp.send();
 			}
+			
+			function removeFunc(itemID){
+				var send_url = "cart/1/" + itemID;
+				$.ajax({
+					url: send_url,
+					type: 'PUT',
+					dataType: 'json', 
+					data: JSON.stringify({operation:'REMOVE'}),
+					contentType: 'application/json', 
+					success: updateCart()
+				});
+			}
+			
+			var frm = $('#formBuy');
+
+		    frm.submit(function (e) {
+		    	e.preventDefault();
+		    	var result = { };
+		    	var x = frm.serializeArray();
+		    	$.each(x, function(i, field){
+		    		result[field.name] = field.value;
+		        });
+		        $.ajax({
+		            type: frm.attr('method'),
+		            url: frm.attr('action'),
+		            data: JSON.stringify(result),
+		            contentType: 'application/json',
+		            success: updateCart()
+		        });
+		    });
 		</script>
 	</body>
 </html>

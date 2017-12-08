@@ -71,9 +71,4 @@ public class Basket {
 	public String toString() {
 		return "Basket [id=" + id + ", items=" + items_ + ", cost=" + cost + "]";
 	}
-	
-	
-	
-	
-	
 }

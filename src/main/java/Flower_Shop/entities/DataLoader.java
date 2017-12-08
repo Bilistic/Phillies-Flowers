@@ -27,9 +27,6 @@ public class DataLoader implements ApplicationRunner{
 		ir.save(i2);
 		ir.save(new Item(3, "Yellow Tulip", 5));
 		Basket b = new Basket(1);
-		b.add(i1, 1);
-		b.add(i2, 1);
-		BR.save(b);
 	}
 
 }
