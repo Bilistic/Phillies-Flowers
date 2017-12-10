@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import Flower_Shop.Repositories.BasketRepo;
 import Flower_Shop.Repositories.ItemRepo;
+import Flower_Shop.Supplier.Services.SupplierServiceImpl;
 
 @Component
 public class DataLoader implements ApplicationRunner{
@@ -18,6 +19,9 @@ public class DataLoader implements ApplicationRunner{
 	@Autowired
 	BasketRepo BR;
 	
+	@Autowired
+	SupplierServiceImpl ssi;
+	
 	@Override
 	public void run(ApplicationArguments arg0) throws Exception {
 		// TODO Auto-generated method stub
@@ -27,6 +31,8 @@ public class DataLoader implements ApplicationRunner{
 		ir.save(i2);
 		ir.save(new Item(3, "Yellow Tulip", 5));
 		Basket b = new Basket(1);
+		
+		System.out.println(ssi.getItem(1));
 	}
 
 }
