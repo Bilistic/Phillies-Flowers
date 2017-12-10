@@ -27,6 +27,7 @@ import Flower_Shop.entities.Basket;
 import Flower_Shop.entities.Basket_Item;
 import Flower_Shop.entities.Item;
 import Flower_Shop.entities.Order;
+import Flower_Shop.entities.Statistic;
 
 @Controller
 @RequestMapping("/shop")
@@ -40,6 +41,9 @@ public class Controllers {
 	
 	@Autowired
 	OrderRepo OR;
+	
+	@Autowired
+	Statistic stat;
 	
 	private static final String OPERATION = "operation";
 	private static final String COUNTER = "count";
@@ -105,6 +109,7 @@ public class Controllers {
 		Address address = new Address(info.get(FIRSTNAME), info.get(LASTNAME), info.get(ADDRESS), info.get(TOWN), info.get(CITY), info.get(POSTCODE));
 		Order order = new Order(OR.count(), basket.getCost(), basket.getItems(), address);
 		OR.save(order);
+		stat.addOrder(order);
 		List<Basket_Item> list = new ArrayList<>(basket.getItems().values());
 		for (Basket_Item basket_item : list) {
 		    basket.remove(basket_item.getItem());

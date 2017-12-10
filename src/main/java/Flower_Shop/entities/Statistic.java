@@ -59,7 +59,8 @@ public class Statistic {
 	public void addOrder(Order order){
 		if(order != null){
 			orders.put(Integer.toString((int) order.getId()),order);
-			this.setShopRevenue(this.getShopRevenue() + order.getCost());
+			this.shopRevenue += order.getCost();
+			balance(order.getCost());
 		}
 	}
 	
@@ -67,6 +68,18 @@ public class Statistic {
 		if(order != null){
 			this.orders.remove(order.getId());
 		}
+	}
+	
+	private void balance(double income){
+		if(outStandingAmount > 0){
+			outStandingAmount = outStandingAmount - income;
+			income = 0;
+			if(outStandingAmount < 0){
+				income = -outStandingAmount;
+				outStandingAmount = 0;
+			}	
+		}
+		userBalance += income;
 	}
 
 	@Override

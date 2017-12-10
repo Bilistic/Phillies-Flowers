@@ -1,6 +1,8 @@
 package Flower_Shop.entities;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -8,7 +10,8 @@ import org.springframework.stereotype.Component;
 
 import Flower_Shop.Repositories.BasketRepo;
 import Flower_Shop.Repositories.ItemRepo;
-import Flower_Shop.Supplier.Services.SupplierServiceImpl;
+import Flower_Shop.Repositories.OrderRepo;
+import Flower_Shop.Repositories.StaffRepo;
 
 @Component
 public class DataLoader implements ApplicationRunner{
@@ -20,7 +23,13 @@ public class DataLoader implements ApplicationRunner{
 	BasketRepo BR;
 	
 	@Autowired
-	SupplierServiceImpl ssi;
+	Statistic stat;
+	
+	@Autowired
+	OrderRepo OR;
+	
+	@Autowired
+	StaffRepo SR;
 	
 	@Override
 	public void run(ApplicationArguments arg0) throws Exception {
@@ -30,9 +39,20 @@ public class DataLoader implements ApplicationRunner{
 		ir.save(i1);
 		ir.save(i2);
 		ir.save(new Item(3, "Yellow Tulip", 5));
+		
+		//Initialise a new basket
 		Basket b = new Basket(1);
 		
-		System.out.println(ssi.getItem(1));
+		//Initialise previous orders
+		List<Order> orders = OR.findAll();
+		for(Order x : orders){
+			stat.addOrder(x);
+		}
+		//Initialise Administrator account
+		Staff admin = SR.findOne(0);
+		if(admin == null){
+			SR.save(new Staff(0, "Admin", "Admin", "Administrator", "Password"));
+		}
 	}
 
 }
