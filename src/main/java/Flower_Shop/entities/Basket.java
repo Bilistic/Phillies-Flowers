@@ -35,7 +35,7 @@ public class Basket {
 			count += value.getCount();
 		}
 		this.items_.put(Integer.toString(item.getId()), new Basket_Item(item, count));
-		this.cost += item.getCost();
+		this.cost += (item.getCost()*count);
 	}
 	
 	public void remove(Item item){

@@ -54,12 +54,6 @@ public class Controllers {
 	private static final String CITY = "city";
 	private static final String POSTCODE = "post";
 	
-	@GetMapping("/admin")
-	public String admin_panel(Model model)
-	{
-		return "admin";
-	}
-	
 	@GetMapping("/")
 	public String home_page(Model model)
 	{

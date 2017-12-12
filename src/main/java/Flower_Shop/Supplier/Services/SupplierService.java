@@ -1,5 +1,7 @@
 package Flower_Shop.Supplier.Services;
 
+import java.util.List;
+
 import Flower_Shop.entities.Account;
 import Flower_Shop.entities.Item;
 
@@ -14,6 +16,8 @@ public interface SupplierService {
 
 	//---------- Item
 	public Item getItem(int item_id);
+	
+	public List<Item> getItem();
 
 	//---------- Stock
 	public int getItemStock(int item_id);

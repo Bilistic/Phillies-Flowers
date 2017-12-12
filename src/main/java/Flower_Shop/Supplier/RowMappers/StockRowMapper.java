@@ -13,8 +13,8 @@ public class StockRowMapper implements RowMapper<Stock> {
 	@Override
 	public Stock mapRow(ResultSet rs, int index) throws SQLException {
 		Stock stock = new Stock();
-		stock.setItemId(rs.getInt("itemId"));
-		stock.setQuantity(rs.getInt("quantity"));
+		stock.setItemId(rs.getInt("ID"));
+		stock.setQuantity(rs.getInt("QUANTITY"));
 		return stock;
 	}
 

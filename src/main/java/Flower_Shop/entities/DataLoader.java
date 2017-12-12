@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import Flower_Shop.Repositories.BasketRepo;
 import Flower_Shop.Repositories.ItemRepo;
 import Flower_Shop.Repositories.OrderRepo;
+import Flower_Shop.Repositories.ShopRepo;
 import Flower_Shop.Repositories.StaffRepo;
 
 @Component
@@ -31,14 +32,17 @@ public class DataLoader implements ApplicationRunner{
 	@Autowired
 	StaffRepo SR;
 	
+
+	@Autowired
+	ShopRepo ShopR;
+	
 	@Override
 	public void run(ApplicationArguments arg0) throws Exception {
-		// TODO Auto-generated method stub
-		Item i1 = new Item(1, "Red Rose", 15);
-		Item i2 = new Item(2, "Pink Tulip", 10);
-		ir.save(i1);
-		ir.save(i2);
-		ir.save(new Item(3, "Yellow Tulip", 5));
+		
+		//Initialise shop
+		Shop s = ShopR.findOne(0);
+		if(s == null)
+			ShopR.save(new Shop(0, "default:name"));
 		
 		//Initialise a new basket
 		Basket b = new Basket(1);

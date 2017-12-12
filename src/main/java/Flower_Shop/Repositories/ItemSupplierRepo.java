@@ -23,7 +23,7 @@ public class ItemSupplierRepo {
 	}
 	
 	public Item getItem(int item_id) {
-		sql = "SELECT * FROM ITEMS WHERE item_id = ?";
+		sql = "SELECT * FROM ITEMS WHERE ID = ?";
 		return jdbcTemplate.queryForObject(sql, new Object[] {item_id}, new ItemRowMapper());
 	}
 	

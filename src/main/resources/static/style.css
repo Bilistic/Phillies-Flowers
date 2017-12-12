@@ -87,3 +87,13 @@ a:hover{
 	position: absolute;
   	bottom: 0;
 }
+
+.pointer:hover{
+	cursor: pointer;
+	background-color: rgba(0, 0, 0, 0.23) !important;
+}
+
+.scroll{
+	overflow-y: scroll !important; 
+	height:400px !important;
+}

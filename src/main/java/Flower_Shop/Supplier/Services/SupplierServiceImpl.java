@@ -1,5 +1,7 @@
 package Flower_Shop.Supplier.Services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -68,5 +70,11 @@ public class SupplierServiceImpl implements SupplierService{
 		//decrement the stock
 		int stockAvailable = sr.getItemStock(item_id);
 		sr.updateItemQuantity(item_id, stockAvailable - quantity);
+	}
+
+
+	@Override
+	public List<Item> getItem() {
+		return ir.getAllItems();
 	}
 }
